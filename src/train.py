@@ -69,10 +69,12 @@ def main():
                 input_example = X_train.iloc[[0]]
                 signature = infer_signature(X_train, model.predict(X_train))
                 
+                # ---> THIS IS THE FIXED BLOCK <---
                 mlflow.sklearn.log_model(
                     model, "model", 
                     signature=signature, 
-                    input_example=input_example
+                    input_example=input_example,
+                    serialization_format="cloudpickle" 
                 )
 
                 # Track best model
